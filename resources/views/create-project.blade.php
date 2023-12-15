@@ -47,7 +47,7 @@ text-align: center;
 <body>
     
     <div class="container">
-  <form class="contact-form" method="POST" action="/create-project" enctype="multipart/form-data">
+  <form class="contact-form" method="POST" action="{{ route('projects.create') }}" enctype="multipart/form-data">
    @csrf
    <h1 class="header">Create Project</h1>
     <label for="name">Project Name</label>

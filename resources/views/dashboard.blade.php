@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-            <button type="Submit" id="button"><a href="/create-project">Create Project</a></button>
+            <button type="Submit" id="button"><a href="/project/create">Create Project</a></button>
             
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Projects') }}
@@ -29,9 +29,9 @@
 <a href="{{ route('projects.delete', ['id' => $projects->id]) }}" method="Post">
   <i style="font-size:24px" class="fa">&#xf014;</i>
 </a>
-<a href="{{ route('projects.config', ['id' => $projects->id]) }}">
+{{-- <a href="{{ route('projects.config', ['id' => $projects->id]) }}">
   <i style="font-size:24px" class="fa">&#xf013;</i>
-</a>
+</a> --}}
 </td>
 </tr>
   @endforeach

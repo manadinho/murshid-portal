@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [ProjectController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
         Route::post('/update', [ProjectController::class, 'update'])->name('update');
-        Route::get('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
+        Route::get('/delete', [ProjectController::class, 'destroy'])->name('delete');
         Route::get('/config/{id}', [ProjectController::class, 'config'])->name('config'); 
     });
 });

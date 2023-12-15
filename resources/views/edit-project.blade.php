@@ -17,7 +17,7 @@ input[type=text], select {
 
 input[type=submit] {
   width: 100%;
-  background-color: #be1109;
+  background-color: #2b2525;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -27,7 +27,7 @@ input[type=submit] {
 }
 input[type=button] {
   width: 100%;
-  background-color: #be12e2;
+  background-color: #2c292c;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -60,7 +60,7 @@ text-align: center;
 <body>
     
     <div class="container">
-  <form class="contact-form" method="POST" action="{{ route('projects.update', ['id' => $project->id]) }}" enctype="multipart/form-data">
+  <form class="contact-form" method="POST" action="{{ route('projects.update') }}" enctype="multipart/form-data">
    @csrf
    <h1 class="header"> Project Data </h1>
     <label for="name">Project Name</label>
