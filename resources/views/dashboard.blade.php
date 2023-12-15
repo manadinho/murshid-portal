@@ -29,7 +29,7 @@
 <a href="{{ route('projects.delete', ['id' => $projects->id]) }}" method="Post">
   <i style="font-size:24px" class="fa">&#xf014;</i>
 </a>
-<a href="/config">
+<a href="{{ route('projects.config', ['id' => $projects->id]) }}">
   <i style="font-size:24px" class="fa">&#xf013;</i>
 </a>
 </td>

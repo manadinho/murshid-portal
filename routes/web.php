@@ -33,6 +33,7 @@ Route::post('/create-project', [ProjectController::class, 'store'])->name('proje
 Route::get('/edit-project/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
 Route::post('/update-project/{id}', [ProjectController::class, 'update'])->name('projects.update');
 Route::get('/delete-project/{id}', [ProjectController::class, 'destroy'])->name('projects.delete');
+Route::get('/project-config/{id}', [ProjectController::class, 'config'])->name('projects.config');
 
 
 

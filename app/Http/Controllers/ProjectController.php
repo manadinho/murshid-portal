@@ -83,6 +83,9 @@ class ProjectController extends Controller
         }
         return back();
     }
+    public function config(Request $request, $id){
+        return view("project-config");
+    }
 }
     
 
