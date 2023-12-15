@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Config</title>
     <style>
-     body{
-    background-color: #d6d6d6;
-    }
     .header{
-    background-color: #919191;
+    background-color: #eee;
     border: 1px solid #555;
     border-radiud: 5px;
     padding: 24px 36px;}
@@ -22,13 +19,14 @@
     border-radius: 5px;
     }
     .api-label{
-    color: white;
+    color: black;
     font-size: 28px;
     font-family: sans-serif;
     padding-right: 10px;
     font-weight: bold;
     text-align: center;
     }
+    
     .generate{
     background-color: #ffe;
     padding: 5px 10px;
@@ -38,34 +36,60 @@
     margin: 10px;
     }
     .main-content{
-    background-color: #999;
-    padding: 10px 20px;
+    background-color: #eee;
+    border: 1px solid #555;
+    border-radiud: 5px;
+    padding: 20px;
     text-align: center;
     }
     .name-label{
     font-family: sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     position: absolute;
     left: 10%;
+    padding-top:4px;
+    }
+    .color-label{
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: bold;
     }
     .name-input{
     position: absolute;
     left: 15%;
+    padding: 6px 2px;
+    border: 1px solid #3d3d3d;
+    border-radius: 5px;
     }
     .main-auth{
-    background-color: #919191;
+    background-color: #eee;
+    border: 1px solid #555;
+    border-radiud: 5px;
+    height: 300px;
     }
     .auth-section{
-    
+    padding: 12px 24px;
     }
-    .storage{
-    display: inline;
-    }
-    .add-btn{
-    color: grey;
-    padding: 4px 8px;
-    }
+    .storage {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            padding: 5px;
+            margin-left: 10px;
+        }
+        .add-btn{
+        padding: 5px 10px;
+        margin:5px;
+        }
+        .btn-submit{
+        padding: 5px 10px;
+        margin:5px;
+        color: blue;
+        position: absolute;
+        right: 30%;
+        }
+
     </style>
 </head>
 <body>
@@ -87,14 +111,17 @@
     </div>
 </div>
 <div>&nbsp</div>
- <div class="main-auth">
-    <div class="auth-section">
-    <h2 >Auth:</h2>
-    </div>
-    <div class="storage">
-    <h2>Local Storage</h2>
-    <button type="button" class="add-btn">+</button>
-    </div>
+<div class="main-auth">
+        <div class="auth-section">
+            <h2>Auth:</h2>
+        </div>
+        <div class="storage" id="storage-container">
+            <h2>Local Storage</h2>
+            <button type="button" class="add-btn">+</button>
+        </div>
+        <div class="btn-submit">
+        <button type="submit" class="generate">Submit</button>
+        </div>       
 </div>
 
 </body>
