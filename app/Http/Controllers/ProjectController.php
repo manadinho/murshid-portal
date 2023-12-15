@@ -25,14 +25,6 @@ class ProjectController extends Controller
     $project = Project::create([
         "name" => $request->input("name"),
     ]);
-    $project->save();
-
-    if ($project->save()) {
-        Toastr::success("Project Created successfully!", "Success");
-    } else {
-        Toastr::error("Project Not Created", "Error");
-    }
-
     return redirect()->back();
 }
     public function show(Request $request)
@@ -40,25 +32,18 @@ class ProjectController extends Controller
         $project = Project::all();
         return view('dashboard', compact('project'));
     }
-    public function view(Request $request, $id)
-    {
-        $project = Project::find($id);
-        if (!$project) {
-            return redirect()->back()->with("error", "Project not found");
-        }
-        return view("show-project", ["project" => $project]);
-    }
+
     public function edit(Request $request, $id)
     {
-        $project = Project::find($id);
+        $project = Project::findorfail($id);
         if (!$project) {
             return redirect()->back()->with("error", "Project not found");
         }
         return view("edit-project", ["project" => $project]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $project = Project::find($id);
+        $project = Project::where('id'  'user->id()');
         if (!$project) {
             return redirect()->back()->with("error", "Project not found");
         }
@@ -70,17 +55,10 @@ class ProjectController extends Controller
         return redirect()->back()
       ->with('success', 'Project updated successfully.');
     }
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        $project = Project::find($id);
-        if (!$project) {
-            return redirect()->back()->with("error", "Project not found");
-        }
-        if ($project->delete()) {
-            Toastr::success("Project deleted successfully!", "Success");
-        } else {
-            Toastr::error("Project not deleted", "Error");
-        }
+        $project = Project::delete->where('')($id);
+        
         return back();
     }
     public function config(Request $request, $id){

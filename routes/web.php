@@ -26,14 +26,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile',[ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::group(['prefix' => 'project', 'as' => 'projects.'], function(){
+        Route::get('/create', [ProjectController::class, 'create'])->name('create');
+        Route::post('/create', [ProjectController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
+        Route::post('/update', [ProjectController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
+        Route::get('/config/{id}', [ProjectController::class, 'config'])->name('config'); 
+    });
 });
 
-Route::get('/create-project', [ProjectController::class, 'create'])->name('projects.create');
-Route::post('/create-project', [ProjectController::class, 'store'])->name('projects.store');
-Route::get('/edit-project/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::post('/update-project/{id}', [ProjectController::class, 'update'])->name('projects.update');
-Route::get('/delete-project/{id}', [ProjectController::class, 'destroy'])->name('projects.delete');
-Route::get('/project-config/{id}', [ProjectController::class, 'config'])->name('projects.config');
 
 
 
