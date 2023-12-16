@@ -21,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
