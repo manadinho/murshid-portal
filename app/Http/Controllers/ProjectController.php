@@ -14,7 +14,7 @@ class ProjectController extends Controller
 {
     public function create()
     {
-        return view("create-project");
+        return view("projects/create-project");
     }
 
     public function store(Request $request)
@@ -42,35 +42,36 @@ class ProjectController extends Controller
         if (!$project) {
             return redirect()->back()->with("error", "Project not found");
         }
-        return view("edit-project", ["project" => $project]);
+        return view("projects/edit-project", ["project" => $project]);
     }
     public function update(Request $request)
-{   
-    $project = Project::where('user_id', auth()->user()->id)->first();
-    if (!$project) {
-        return redirect()->back()->with("error", "Project not found");
+    {   
+        $userId = auth()->user()->id;
+        $projectId = $request->input('id');
+        $project = Project::where('user_id', $userId)->findorfail($projectId);
+        if (!$project) {
+            return redirect()->back()->with('error', 'Project not found.');
+        }
+        $requestdata = $request->validate([
+            "name" => "required|string",
+            "id" => "required|int", 
+        ]);
+        $project->name = $requestdata['name'];
+        $project->save();
+    
+        return redirect()->back()->with('success', 'Project updated successfully.');
     }
 
-    $requestdata = $request->validate([
-        "name" => "required|string",
-    ]);
-
-    $project->name = $requestdata['name'];
-    $project->save();
-
-    return redirect()->back()->with('success', 'Project updated successfully.');
-}
-
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $project = Project::where('user_id', auth()->user()->id)->first();
-
-    if($project) {
-   $project->delete();
-        return redirect()->back()->with('success', 'Project Deleted successfully.');
+        $userId = auth()->user()->id;
+        $projectId = $request->input('id');
+        $project = Project::where('user_id', $userId)->findorfail($projectId);
+        $project->delete();
+        redirect()->back()->with('success', 'Project Deleted successfully.');
     }
-    }
-    public function config(Request $request, $id){
+    public function config(Request $request, $id)
+    {
         return view("project-config");
     }
 }

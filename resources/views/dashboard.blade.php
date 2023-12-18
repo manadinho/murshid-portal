@@ -7,6 +7,9 @@
             {{ __('Projects') }}
         </h2>
     </x-slot>
+    @php
+      $user = auth()->user()->id;
+    @endphp
 <table id="customers">
   <tr>
     <th>ID</th>
