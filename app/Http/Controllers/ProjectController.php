@@ -9,36 +9,37 @@ use App\Models\Project;
 use App\Models\User;
 use Yoeunes\Toastr\Facades\Toastr;
 
-
 class ProjectController extends Controller
 {
     public function create()
     {
-        return view("projects/create-project");
+        return view("projects.create");
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        "name" => "required|string",
-    ]);
+    {
+        $request->validate([
+            "name" => "required|string",
+        ]);
         Project::create([
         "name" => $request->input("name"),
         "user_id" => auth()->user()->id,
-    ]);
-    return redirect('dashboard')->with('success', 'Project Created successfully.');
-}
+        ]);
+        return redirect('dashboard')->with('success', 'Project Created successfully.');
+    }
+
     public function show(Request $request)
     {
-        $project = Project::where('user_id', auth()->user()->id)->get();
-        return view('dashboard', compact('project'));
+        $projects = Project::where('user_id', auth()->user()->id)->get();
+        return view('dashboard', compact('projects'));
     }
 
     public function edit(Request $request, $id)
     {
-        $project = Project::findorfail($id);
-        return view("projects/edit-project", ["project" => $project]);
+        $project = Project::where('user_id', auth()->user()->id)->findorfail($id);
+        return view("projects.edit", ["project" => $project]);
     }
+
     public function update(Request $request)
     {   
         $requestdata = $request->validate([
@@ -54,6 +55,7 @@ class ProjectController extends Controller
         Project::where('user_id', auth()->user()->id)->where('id', $request->id)->delete();
         return redirect('dashboard')->with('success', 'Project Deleted successfully.');
     }
+
     public function config(Request $request, $id)
     {
         return view("project-config");
