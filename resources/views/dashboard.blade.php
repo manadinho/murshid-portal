@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-            <button type="Submit" id="button"><a href="/project/create">Create Project</a></button>
+            <button type="Submit" id="button"><a href="{{ route('projects.create') }}">Create Project</a></button>
             
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Projects') }}

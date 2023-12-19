@@ -22,53 +22,37 @@ class ProjectController extends Controller
     $request->validate([
         "name" => "required|string",
     ]);
-    $userid = auth()->user()->id;
-
-    $project = Project::create([
+        Project::create([
         "name" => $request->input("name"),
-        "user_id" => $userid,
+        "user_id" => auth()->user()->id,
     ]);
-    return redirect()->back();
+    return redirect('dashboard')->with('success', 'Project Created successfully.');
 }
     public function show(Request $request)
     {
-        $project = Project::all();
+        $project = Project::where('user_id', auth()->user()->id)->get();
         return view('dashboard', compact('project'));
     }
 
     public function edit(Request $request, $id)
     {
         $project = Project::findorfail($id);
-        if (!$project) {
-            return redirect()->back()->with("error", "Project not found");
-        }
         return view("projects/edit-project", ["project" => $project]);
     }
     public function update(Request $request)
     {   
-        $userId = auth()->user()->id;
-        $projectId = $request->input('id');
-        $project = Project::where('user_id', $userId)->findorfail($projectId);
-        if (!$project) {
-            return redirect()->back()->with('error', 'Project not found.');
-        }
         $requestdata = $request->validate([
             "name" => "required|string",
             "id" => "required|int", 
         ]);
-        $project->name = $requestdata['name'];
-        $project->save();
-    
-        return redirect()->back()->with('success', 'Project updated successfully.');
+        Project::where('user_id', auth()->user()->id)->where('id', $request->id)->update(['name' => $requestdata['name']]);
+        return redirect('dashboard')->with('success', 'Project updated successfully.');
     }
 
     public function destroy(Request $request, $id)
     {
-        $userId = auth()->user()->id;
-        $projectId = $request->input('id');
-        $project = Project::where('user_id', $userId)->findorfail($projectId);
-        $project->delete();
-        redirect()->back()->with('success', 'Project Deleted successfully.');
+        Project::where('user_id', auth()->user()->id)->where('id', $request->id)->delete();
+        return redirect('dashboard')->with('success', 'Project Deleted successfully.');
     }
     public function config(Request $request, $id)
     {
@@ -76,4 +60,3 @@ class ProjectController extends Controller
     }
 }
     
-
