@@ -16,25 +16,28 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/dashboard', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');
-Route::get('/google/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('google.callback');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile',   [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile',[ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
+    Route::group(['prefix' => 'google', 'as' => 'google.'], function(){
+    Route::get('/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('redirect');
+    Route::get('/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('callback');
+    });
+    Route::middleware('auth')->group(function () {
+    Route::group(['prefix' => 'profile', 'as' => 'profile.'], function(){
+    Route::get('/',   [ProfileController::class, 'edit'])->name('edit');
+    Route::patch('/', [ProfileController::class, 'update'])->name('update');
+    Route::delete('/',[ProfileController::class, 'destroy'])->name('destroy');
+    });
 
     Route::group(['prefix' => 'project', 'as' => 'projects.'], function(){
         Route::get('/create', [ProjectController::class, 'create'])->name('create');
         Route::post('/create', [ProjectController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
         Route::post('/update', [ProjectController::class, 'update'])->name('update');
-        Route::get('/delete', [ProjectController::class, 'destroy'])->name('delete');
+        Route::get('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
         Route::get('/config/{id}', [ProjectController::class, 'config'])->name('config'); 
     });
 });

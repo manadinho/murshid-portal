@@ -9,70 +9,56 @@ use App\Models\Project;
 use App\Models\User;
 use Yoeunes\Toastr\Facades\Toastr;
 
-
 class ProjectController extends Controller
 {
     public function create()
     {
-        return view("create-project");
+        return view("projects.create");
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        "name" => "required|string",
-    ]);
-    $userid = auth()->user()->id;
-
-    $project = Project::create([
+    {
+        $request->validate([
+            "name" => "required|string",
+        ]);
+        Project::create([
         "name" => $request->input("name"),
-        "user_id" => $userid,
-    ]);
-    return redirect()->back();
-}
+        "user_id" => auth()->user()->id,
+        ]);
+        return redirect('dashboard')->with('success', 'Project Created successfully.');
+    }
+
     public function show(Request $request)
     {
-        $project = Project::all();
-        return view('dashboard', compact('project'));
+        $projects = Project::where('user_id', auth()->user()->id)->get();
+        return view('dashboard', compact('projects'));
     }
 
     public function edit(Request $request, $id)
     {
-        $project = Project::findorfail($id);
-        if (!$project) {
-            return redirect()->back()->with("error", "Project not found");
-        }
-        return view("edit-project", ["project" => $project]);
+        $project = Project::where('user_id', auth()->user()->id)->findorfail($id);
+        return view("projects.edit", ["project" => $project]);
     }
+
     public function update(Request $request)
-{   
-    $project = Project::where('user_id', auth()->user()->id)->first();
-    if (!$project) {
-        return redirect()->back()->with("error", "Project not found");
+    {   
+        $requestdata = $request->validate([
+            "name" => "required|string",
+            "id" => "required|int", 
+        ]);
+        Project::where('user_id', auth()->user()->id)->where('id', $request->id)->update(['name' => $requestdata['name']]);
+        return redirect('dashboard')->with('success', 'Project updated successfully.');
     }
 
-    $requestdata = $request->validate([
-        "name" => "required|string",
-    ]);
-
-    $project->name = $requestdata['name'];
-    $project->save();
-
-    return redirect()->back()->with('success', 'Project updated successfully.');
-}
-
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $project = Project::where('user_id', auth()->user()->id)->first();
+        Project::where('user_id', auth()->user()->id)->where('id', $request->id)->delete();
+        return redirect('dashboard')->with('success', 'Project Deleted successfully.');
+    }
 
-    if($project) {
-   $project->delete();
-        return redirect()->back()->with('success', 'Project Deleted successfully.');
-    }
-    }
-    public function config(Request $request, $id){
+    public function config(Request $request, $id)
+    {
         return view("project-config");
     }
 }
     
-
