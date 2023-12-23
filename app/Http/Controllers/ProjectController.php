@@ -22,8 +22,8 @@ class ProjectController extends Controller
             "name" => "required|string",
         ]);
         Project::create([
-        "name" => $request->input("name"),
-        "user_id" => auth()->user()->id,
+            "name" => $request->input("name"),
+            "user_id" => auth()->user()->id,
         ]);
         return redirect('dashboard')->with('success', 'Project Created successfully.');
     }
@@ -54,11 +54,6 @@ class ProjectController extends Controller
     {
         Project::where('user_id', auth()->user()->id)->where('id', $request->id)->delete();
         return redirect('dashboard')->with('success', 'Project Deleted successfully.');
-    }
-
-    public function config(Request $request, $id)
-    {
-        return view("project-config");
     }
 }
     

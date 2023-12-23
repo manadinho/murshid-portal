@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectConfigController;
 
 
 /*
@@ -16,20 +17,20 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-    Route::get('/dashboard', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
-    Route::group(['prefix' => 'google', 'as' => 'google.'], function(){
+Route::get('/dashboard', [ProjectController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['prefix' => 'google', 'as' => 'google.'], function(){
     Route::get('/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('redirect');
     Route::get('/callback', [App\Http\Controllers\GoogleLoginController::class, 'handleGoogleCallback'])->name('callback');
-    });
-    Route::middleware('auth')->group(function () {
+});
+Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'profile', 'as' => 'profile.'], function(){
-    Route::get('/',   [ProfileController::class, 'edit'])->name('edit');
-    Route::patch('/', [ProfileController::class, 'update'])->name('update');
-    Route::delete('/',[ProfileController::class, 'destroy'])->name('destroy');
+        Route::get('/',   [ProfileController::class, 'edit'])->name('edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/',[ProfileController::class, 'destroy'])->name('destroy');
     });
 
     Route::group(['prefix' => 'project', 'as' => 'projects.'], function(){
@@ -38,7 +39,11 @@ use App\Http\Controllers\ProjectController;
         Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
         Route::post('/update', [ProjectController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
-        Route::get('/config/{id}', [ProjectController::class, 'config'])->name('config'); 
+
+        Route::group(['prefix' => 'config', 'as' => 'config.'], function(){
+            Route::get('/{id}', [ProjectConfigController::class, 'index'])->name('index');
+            Route::post('/parse-sql-file', [ProjectConfigController::class, 'parseSqlFile'])->name('parse-sql-file'); 
+        });
     });
 });
 

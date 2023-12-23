@@ -15,4 +15,9 @@ class Project extends Model
     {
         return Str::random(32);
     }
+
+    public function projectConfig()
+    {
+        return $this->hasOne(ProjectConfig::class);
+    }
 }
