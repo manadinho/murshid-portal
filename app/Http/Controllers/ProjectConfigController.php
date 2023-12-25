@@ -16,6 +16,11 @@ class ProjectConfigController extends Controller
         return view('project-config.index', ['db_tables' => $html]);
     }
 
+    public function config()
+    {
+        return view("project-config.manager");
+    }
+
     public function parseSqlFile(Request $request)
     {
         try {

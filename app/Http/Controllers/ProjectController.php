@@ -11,9 +11,9 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class ProjectController extends Controller
 {
-    public function create()
+    public function index()
     {
-        return view("projects.create");
+        return view("projects.home");
     }
 
     public function store(Request $request)
@@ -34,12 +34,6 @@ class ProjectController extends Controller
         return view('dashboard', compact('projects'));
     }
 
-    public function edit(Request $request, $id)
-    {
-        $project = Project::where('user_id', auth()->user()->id)->findorfail($id);
-        return view("projects.edit", ["project" => $project]);
-    }
-
     public function update(Request $request)
     {   
         $requestdata = $request->validate([
@@ -47,7 +41,7 @@ class ProjectController extends Controller
             "id" => "required|int", 
         ]);
         Project::where('user_id', auth()->user()->id)->where('id', $request->id)->update(['name' => $requestdata['name']]);
-        return redirect('dashboard')->with('success', 'Project updated successfully.');
+        return response()->json(['success' => true, 'message' => 'Project updated successfully.']);
     }
 
     public function destroy(Request $request, $id)
