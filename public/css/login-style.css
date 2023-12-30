@@ -34,7 +34,7 @@ body {
     box-shadow: -0.5em 1em 2em rgba(0, 0, 0, 0.5);
     height:100%;
     border-radius:1em;
-  width:400px;
+    width:500px;
 }
 
 .container > input {
@@ -49,7 +49,7 @@ body {
     display:flex;
     top: 0;
     left: 0;
-    height:100%;
+    height:120%;
     justify-content: center;
     align-items:center;
     border-radius:1em;
@@ -59,7 +59,7 @@ form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding-top: 30vmin;
+    padding-top: 15vmin;
     align-items: center;        
 }
 
@@ -167,6 +167,12 @@ input:focus::-moz-placeholder  {
     text-align: center;
 }
 
+.sign-up{
+    background: transparent;
+     border: none;
+     color: aliceblue;
+}
+    
 #tab1~#contentOne {
     clip-path: polygon(50% 0, 50% 0, 50% 2em, 100% 2em, 100% 2em, 0 2em, 0 2em, 50% 2em);
     transition: all 0.351s cubic-bezier(0.755, 0.05, 0.855, 0.06);
@@ -260,11 +266,24 @@ input:focus::-moz-placeholder  {
     clip-path: polygon(50% 0%, 98% 2%, 100% 35%, 100% 70%, 97% 98%, 50% 100%, 3% 98%, 0% 70%, 0% 35%, 2% 1%);
     }
 }
-.logo {
-  font-size:2rem; 
-  color: #1d88fe;
-  margin-left:1rem;
-  text-align: start;
-  line-height:24px;
-  letter-spacing: normal;
+* Style for Google Login Button Section */
+.google-login {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style for Google Login Button */
+.google-button {
+    background: #6c72ff;
+    color: white;
+    padding: 10px 0; /* Adjust padding as needed */
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.google-button:hover {
+    background: #6e73ed;
 }

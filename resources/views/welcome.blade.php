@@ -36,11 +36,13 @@
                       <x-primary-button class="ms-3">
                         {{ __('Log in') }}
                       </x-primary-button>
-                      <x-secondary-button class="ms-4 bg-blue">
-                        <a href="{{ route('google.redirect') }}"> Login with Google </a>
-                      </x-secondary-button>
                       <div class="field small">
                         <a href="#forgot" tabindex="5" class="forgot-password">Forgot Password?</a>
+                      </div>
+                      <div class="google-login">
+                        <a href="{{ route('google.redirect') }}">
+                            <button type="button" class="google-button">Login with Google</button>
+                        </a>
                       </div>
                 </form>
             </div>
@@ -78,18 +80,24 @@
                             </svg>
                         </div>
                         <div class="flex items-center justify-end mt-4">
-                            @if (Route::has('password.request'))
-                                <a >
+                            {{-- @if (Route::has('password.request'))
+                                <a style="font-size: 15px">
                                     {{ __('Forgot your password?') }}
                                 </a>
-                            @endif
-                            <x-primary-button class="ms-3">
-                              {{ __('Register') }}
-                            </x-primary-button>
+                            @endif --}}
+                            <button type="submit" class="sign-up"> Sign up
+                                <svg class="icon">
+                                    <use xlink:href="#icon-arrow-right-outline">
+                                        {{ __('Register') }}
+                                    </use>
+                                </svg>
+                            </button>
                         </div>
-                        <x-google-button class="ms-5 bg-blue-700 text-white mt-10 ml-5">
-                            <a href="{{ route('google.redirect') }}"> Login with Google </a>
-                        </x-google-button>
+                        <div class="google-login">
+                            <a href="{{ route('google.redirect') }}">
+                                <button type="button" class="google-button">Login with Google</button>
+                            </a>
+                          </div>
                         <div class="field small">
                           By clicking Register, you agree to the <a href="#terms">Terms and Conditions</a> set out by this site, including our <a href="#cookies">Cookie Use</a>.
                         </div>

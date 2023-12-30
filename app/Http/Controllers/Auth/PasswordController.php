@@ -7,23 +7,50 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Yoeunes\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Illuminate\Support\Facades\File;
+
+
 
 class PasswordController extends Controller
 {
-    /**
-     * Update the user's password.
-     */
-    public function update(Request $request): RedirectResponse
+
+    public function updatepassword(Request $request): RedirectResponse
     {
-        $validated = $request->validateWithBag('updatePassword', [
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', Password::defaults(), 'confirmed'],
+        $validator = \Validator::make($request->all(), [
+            'new_password' => 'required|confirmed|min:8',
         ]);
-
-        $request->user()->update([
-            'password' => Hash::make($validated['password']),
+        $user = $request->user();
+        if (!$validator->fails() && $user->password != null) {
+            $validator->addRules([
+                'old_password' => 'required',
+            ]);
+            $validated = $validator->validate();
+            if (!Hash::check($validated['old_password'], $user->password)) {
+                return redirect('dashboard')->with('error', 'Incorrect current password.');
+            }
+        }
+        if ($validator->fails()) {
+            return redirect('dashboard')->with('error', 'Confirm Password Not Matched.')->withErrors($validator)->withInput();
+        }
+        $user->update([
+            'password' => Hash::make($validated['new_password']),
         ]);
-
-        return back()->with('status', 'password-updated');
+        return redirect('dashboard')->with('success', 'Password updated successfully.');
     }
+
+
+    public function updateusername(Request $request){
+        $validated = $request->validate([
+            "new_name" => "required|string",
+        ]);
+        $user = $request->user();
+        $user->update([
+            'name' => $validated['new_name'],
+        ]);
+        return response()->json(['success' => true, 'message' => 'Name updated successfully.']);
+    }
+
 }

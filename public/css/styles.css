@@ -1,9 +1,23 @@
 /* Common Styles */
-.main-content {
+ .main-content {
     padding: 20px;
     margin-left: 30px;
 }
 
+.span-email{
+    position: relative;
+    font-size: 12px;
+    left: 0;
+}
+
+.ellipsis {
+    display: inline-block;
+    max-width: 100%; /* Optional: Set a maximum width if needed */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
 .input-name{
     border: none;
     background: transparent;
@@ -17,7 +31,7 @@
 }
 /* Dropdown Profile */
 .user-profile {
-    border-bottom: 1px solid #ccc;
+    
     display: flex;
     align-items: center;
     margin-bottom: 20px;
@@ -29,6 +43,12 @@
     margin-right: 10px;
 }
 /* Light and dark mode toggle */
+.toggle{
+    bottom:0;
+    left: 5%;
+    position:absolute;
+}
+
 .switch {
     position: relative;
     display: inline-block;
@@ -48,7 +68,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #9eb9c7;
+    background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
 }

@@ -1,0 +1,23 @@
+/* public/css/avatar.css */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.avatar-container {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: #ffffff;
+}
+.avatar-text{
+    font-size: 70px;
+}

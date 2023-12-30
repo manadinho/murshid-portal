@@ -5,7 +5,7 @@
         <div class="col-md-9 main-content">
             <div class=" p-4 mb-5">
                 <h5><i class="fa fa-folder me-2"></i>Project List</h5>
-                <h1><i class="fa fa-tasks me-2"></i>{{ Auth::user()->name }}</h1>
+                <h1><i class="fa fa-tasks me-2"></i>{{ auth()->user()->name }}</h1>
                 <p><i class="fa fa-cogs me-2"></i>Create and manage your Projects</p>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
@@ -26,7 +26,6 @@
                                     <i class="fa fa-trash me-2"></i>
                                 </a>
                                 <a href="{{ route('projects.config.index', ['id' => $project->id]) }}" method="get">
-
                                     <i class="fa fa-cog"></i>
                                 </a>
                             </td>
@@ -34,7 +33,7 @@
                     @empty
                         <tr>
                             <td>
-                            No Project Created Yet!
+                                No Project Created Yet!
                             </td>                        
                         </tr>
                     @endforelse

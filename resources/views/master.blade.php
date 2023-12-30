@@ -15,5 +15,27 @@
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     
     @stack('script')
+    
+<script>
+  function updateUser(element) {
+    
+        console.log(element.value);
+        $.ajax({
+            url: "{{ route('username.update') }}",
+            type: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "new_name": element.value,
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert(element.value + ' Is Your New Name ');
+                } else {
+                    alert('Error: Name Not Updating');
+                }
+            }
+        });
+    }
+</script>
 </body>
 </html>
