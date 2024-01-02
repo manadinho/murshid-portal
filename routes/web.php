@@ -20,15 +20,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/',   [ProfileController::class, 'edit'])->name('edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
         Route::delete('/',[ProfileController::class, 'destroy'])->name('destroy');
-        Route::get('/avatar/{username}', [ProfileController::class, 'showAvatar'])->name('avatar');
-        Route::get('/avatar/{username}/image', [ProfileController::class, 'generateAvatar'])->name('image');
     });
 
     Route::group(['prefix' => 'project', 'as' => 'projects.'], function(){
-        Route::get('/home', [ProjectController::class, 'show'])->name('home');
+        Route::get('/index', [ProjectController::class, 'show'])->name('home');
         Route::get('/create', [ProjectController::class, 'create'])->name('create');
         Route::post('/create', [ProjectController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
         Route::post('/update', [ProjectController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
 
@@ -38,7 +35,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [ProjectConfigController::class, 'config'])->name('manager');
 
         });
-        
     });
 });
 

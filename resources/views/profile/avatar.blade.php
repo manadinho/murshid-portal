@@ -8,8 +8,8 @@
     <title>User Avatar</title>
 </head>
 <body>
-    <div class="avatar-container">
-        <span class="avatar-text">{{ strtoupper(substr($username, 0, 1)) }}</span>
+    <div class="avatar-container ">
+        <span class="avatar-text">{{ strtoupper(substr("ahad", 0, 1)) }}</span>
     </div>
 </body>
 </html>

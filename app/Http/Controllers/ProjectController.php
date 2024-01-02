@@ -13,7 +13,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return view("projects.home");
+        return view("projects.index");
     }
 
     public function store(Request $request)
@@ -25,7 +25,7 @@ class ProjectController extends Controller
             "name" => $request->input("name"),
             "user_id" => auth()->user()->id,
         ]);
-        return redirect('dashboard')->with('success', 'Project Created successfully.');
+        return response()->json(['success' => true, 'message' => 'Project Created!']);
     }
 
     public function show(Request $request)
@@ -41,13 +41,13 @@ class ProjectController extends Controller
             "id" => "required|int", 
         ]);
         Project::where('user_id', auth()->user()->id)->where('id', $request->id)->update(['name' => $requestdata['name']]);
-        return response()->json(['success' => true, 'message' => 'Project updated successfully.']);
+        return response()->json(['success' => true, 'message' => 'Project updated!']);
     }
 
     public function destroy(Request $request, $id)
     {
         Project::where('user_id', auth()->user()->id)->where('id', $request->id)->delete();
-        return redirect('dashboard')->with('success', 'Project Deleted successfully.');
+        return redirect('project/index')->with('success', 'Project Deleted successfully.');
     }
 }
     

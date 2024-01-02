@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="{{  asset('css/login-style.css') }}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
   <body>
   <div class="wrapper w100">
@@ -19,110 +20,129 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                       <div class="field">
-                          <input id="uname" placeholder="Email Adress" type="text" name="email">
+                          <input id="uname" placeholder="Email Adress" type="text" name="email" required>
                           <svg class="icon">
                               <use xlink:href="#icon-person"></use>
                           </svg>
                       </div>
                       <div class="field">
-                          <input id="upass" placeholder="Password" type="password" name="password">
-                          <svg class="icon">
-                              <use xlink:href="#icon-lock"></use>
-                          </svg>
-                          <svg class="icon-eye" onclick="togglePassVisibility('upass');">
-                              <use xlink:href="#icon-eye"></use>
-                          </svg>
-                      </div>
-                      <x-primary-button class="ms-3">
-                        {{ __('Log in') }}
-                      </x-primary-button>
+                            <input id="upass" placeholder="Password" type="password" name="password" required>
+                            <svg class="icon">
+                                <use xlink:href="#icon-lock"></use>
+                            </svg>
+                            <svg class="icon-eye upass-icon-eye" onclick="togglePassVisibility('upass');">
+                                <use href="#icon-eye-hidden"></use>
+                            </svg>                          
+                      </div>                                          
+                     <button type="submit"> Login
+                            <svg class="icon">
+                                <use xlink:href="#icon-arrow-right-outline"></use>
+                            </svg>
+                     </button>
                       <div class="field small">
                         <a href="#forgot" tabindex="5" class="forgot-password">Forgot Password?</a>
                       </div>
                       <div class="google-login">
-                        <a href="{{ route('google.redirect') }}">
-                            <button type="button" class="google-button">Login with Google</button>
-                        </a>
+                            <a href="{{ route('google.redirect') }}" style="text-decoration: none;">
+                                <button type="button" class="google-button">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
+                                        c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
+                                        c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657
+                                        C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+                                        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36
+                                        c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+                                        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
+                                        c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                    </svg>Login with Google
+                                </button>
+                            </a>
                       </div>
                 </form>
             </div>
             <div class="content w100" id="contentTwo">
                 <form method="POST" action="{{ route('register') }}">
-                    @csrf
-                      <div class="field">
-                          <input id="rname" placeholder="choose a username" type="text" name="name" required>
-                          <svg class="icon">
-                              <use xlink:href="#icon-person"></use>
-                          </svg>
-                      </div>
-                      <div class="field">
-                          <input id="rmail" placeholder="your email" type="email" name="email" required>
-                          <svg class="icon">
-                              <use xlink:href="#icon-mail"></use>
-                          </svg>
-                      </div>
-                      <div class="field">
-                          <input id="rpass" placeholder="choose a password" type="password" name="password" required>
-                          <svg class="icon">
-                              <use xlink:href="#icon-lock"></use>
-                          </svg>
-                          <svg class="icon-eye" onclick="togglePassVisibility('rpass');">
-                              <use xlink:href="#icon-eye"></use>
-                          </svg>
-                      </div>
-                        <div class="field">
-                            <input id="rpass" placeholder="Confirm password" type="password" name="password_confirmation" required>
-                            <svg class="icon">
-                                <use xlink:href="#icon-lock"></use>
-                            </svg>
-                            <svg class="icon-eye" onclick="togglePassVisibility('rpass');">
-                                <use xlink:href="#icon-eye"></use>
-                            </svg>
-                        </div>
-                        <div class="flex items-center justify-end mt-4">
-                            {{-- @if (Route::has('password.request'))
-                                <a style="font-size: 15px">
-                                    {{ __('Forgot your password?') }}
-                                </a>
-                            @endif --}}
-                            <button type="submit" class="sign-up"> Sign up
-                                <svg class="icon">
-                                    <use xlink:href="#icon-arrow-right-outline">
-                                        {{ __('Register') }}
-                                    </use>
-                                </svg>
+                    @csrf                    
+                    <div class="field">
+                        <input id="rmail" placeholder="Your email" type="email" name="email" required>
+                        <svg class="icon">
+                            <use xlink:href="#icon-mail"></use>
+                        </svg>
+                    </div>
+                    <div class="field">
+                        <input id="rname" placeholder="Choose a username" type="text" name="name" required>
+                        <svg class="icon">
+                            <use xlink:href="#icon-person"></use>
+                        </svg>
+                    </div>
+                    <div class="field">
+                        <input id="rpass" placeholder="Password" type="password" name="password" required>
+                        <svg class="icon">
+                            <use xlink:href="#icon-lock"></use>
+                        </svg>
+                        <svg class="icon-eye rpass-icon-eye" onclick="togglePassVisibility('rpass');">
+                            <use href="#icon-eye-hidden"></use>
+                        </svg>                          
+                    </div>  
+                    <div class="field">
+                        <input id="cpass" placeholder="Confirm password" type="password" name="password_confirmation" required>
+                        <svg class="icon">
+                            <use xlink:href="#icon-lock"></use>
+                        </svg>
+                        <svg class="icon-eye cpass-icon-eye" onclick="togglePassVisibility('cpass');">
+                            <use href="#icon-eye-hidden"></use>
+                        </svg>                          
+                    </div>
+                    <button type="submit"> Sign up
+                        <svg class="icon">
+                            <use xlink:href="#icon-arrow-right-outline"></use>
+                        </svg>
+                    </button>
+                    <div class="google-login">
+                        <a href="{{ route('google.redirect') }}" style="text-decoration: none;">
+                            <button type="button" class="google-button">
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
+                                    c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
+                                    c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657
+                                    C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+                                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36
+                                    c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+                                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
+                                    c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+                                </svg>Login with Google
                             </button>
-                        </div>
-                        <div class="google-login">
-                            <a href="{{ route('google.redirect') }}">
-                                <button type="button" class="google-button">Login with Google</button>
-                            </a>
-                          </div>
-                        <div class="field small">
-                          By clicking Register, you agree to the <a href="#terms">Terms and Conditions</a> set out by this site, including our <a href="#cookies">Cookie Use</a>.
-                        </div>
+                        </a>
+                  </div>
+                  <div class="field small">
+                            By clicking Register, you agree to the <a href="#terms">Terms
+                        and Conditions</a> set out by this site, including our <a href="#cookies">Cookie Use</a>.
+                  </div>
                 </form>
             </div>
       </div>
   </div>
-
   <div id="forgot" class="pop w100">
       <div class="dialog">
           <h2>Password Recovery</h2>
           <a href="#">&#x2715;</a>
-          <form action="javascript:return false;">
-              <div class="field">
-                  <input id="uname" placeholder="E-mail" type="email" name="recover" required>
-                  <svg class="icon">
-                      <use xlink:href="#icon-mail"></use>
-                  </svg>
-              </div>
-              <button type="submit"> Send new password
-                  <svg class="icon">
-                      <use xlink:href="#icon-arrow-right-outline"></use>
-                  </svg>
-              </button>
-          </form>
+            <!-- Email Address -->
+            {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+            <form id="myForm">
+                <div class="field">
+                    <input id="email" type="email" name="email" placeholder="E-mail" required>
+                    <svg class="icon">
+                        <use xlink:href="#icon-mail"></use>
+                    </svg>
+                </div>
+                <button type="submit"> Send new password
+                    <svg class="icon">
+                        <use xlink:href="#icon-arrow-right-outline"></use>
+                    </svg>
+                </button>
+            </form>
       </div>
   </div>
   <div id="terms" class="pop w100">
@@ -157,24 +177,56 @@
           <symbol id="icon-arrow-right-outline" viewBox="0 0 24 24">
                   <path d="M13.293 7.293c-0.391 0.391-0.391 1.023 0 1.414l2.293 2.293h-7.586c-0.552 0-1 0.448-1 1s0.448 1 1 1h7.586l-2.293 2.293c-0.391 0.391-0.391 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l4.707-4.707-4.707-4.707c-0.391-0.391-1.023-0.391-1.414 0z"></path>
           </symbol>
-          <symbol id="icon-eye" viewBox="0 0 24 24">
+          <symbol id="icon-eye-hidden" viewBox="0 0 24 24">
               <path d="M12 9c1.641 0 3 1.359 3 3s-1.359 3-3 3-3-1.359-3-3 1.359-3 3-3zM12 17.016c2.766 0 5.016-2.25 5.016-5.016s-2.25-5.016-5.016-5.016-5.016 2.25-5.016 5.016 2.25 5.016 5.016 5.016zM12 4.5c5.016 0 9.281 3.094 11.016 7.5-1.734 4.406-6 7.5-11.016 7.5s-9.281-3.094-11.016-7.5c1.734-4.406 6-7.5 11.016-7.5z"></path>
               <rect id="visible" style="stroke-width:3;" width="19.118645" height="0.40677965" x="6.4119263" y="-3.57639"
                   transform="matrix(0.54941993,0.83554637,-0.83554637,0.54941993,0,0)" />
           </symbol>
-      </svg>
+          <symbol id="icon-eye-view" viewBox="0 0 24 24">
+            <path d="M12 9c1.641 0 3 1.359 3 3s-1.359 3-3 3-3-1.359-3-3 1.359-3 3-3zM12 17.016c2.766 0 5.016-2.25 5.016-5.016s-2.25-5.016-5.016-5.016-5.016 2.25-5.016 5.016 2.25 5.016 5.016 5.016zM12 4.5c5.016 0 9.281 3.094 11.016 7.5-1.734 4.406-6 7.5-11.016 7.5s-9.281-3.094-11.016-7.5c1.734-4.406 6-7.5 11.016-7.5z"></path>
+        </symbol>
+  </svg>
         <script>
-              $ = id => {
-                return document.getElementById(id);
-                }
-              togglePassVisibility = el => {
-                $(el).type === "password"? 
-                  $(el).type = "text"
-                  : $(el).type = "password";
-                $("visible").style.display === "none"?
-                  $("visible").style.display = "block"
-                  : $("visible").style.display = "none";
-              }
+
+              document.getElementById('myForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+                resetRequest(document.getElementById('email').value);
+            });
+
+            function resetRequest(email) {
+                $.ajax({
+                    url: "{{ route('password.email') }}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "email": email,
+                    },
+                    success: function (response) {
+                        var jsonResponse = @json(session('json_response', ['success' => true, 'message' => 'Password Reset Link Sent']));
+                        if (jsonResponse.success) {
+                            alert(jsonResponse.message);
+                        } else {
+                            alert('Error: ' + jsonResponse.message);
+                        }
+                    }
+                });
+            }
         </script>
+        <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+        <script>
+            function togglePassVisibility(inputId) {
+                const passwordField = document.getElementById(inputId);
+                const eyeIcon = document.querySelector(`.${inputId}-icon-eye use`);
+
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    eyeIcon.setAttribute('href', '#icon-eye-view');
+                } else {
+                    passwordField.type = 'password';
+                    eyeIcon.setAttribute('href', '#icon-eye-hidden');
+                }
+                }
+        </script>
+
   </body>
 </html>

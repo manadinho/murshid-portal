@@ -60,28 +60,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    
-    public function showAvatar($username) : View
-    {
-        return view('profile.avatar')->with('username', $username);
-    }
-
-    public function generateAvatar($username)
-    {
-        $initial = strtoupper(substr($username, 0, 1));
-        $background = 'rgb(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ')';
-        $image = Image::canvas(100, 100, $background);
-        $fontPath = public_path('fonts/futra.ttf');
-        $image->text($initial, 50, 50, function ($font) use ($fontPath) {
-            $font->file($fontPath);
-            $font->size(60); 
-            $font->color('#ffffff');
-            $font->align('center');
-            $font->valign('middle');
-        });
-        $response = response($image->encode('png'));
-        $response->header('Content-Type', 'image/png');
-        return $response;
-    }
-
 }

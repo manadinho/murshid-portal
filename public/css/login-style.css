@@ -1,11 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Dosis');
-
 * {
     box-sizing: border-box;
     font-size: 5vmin;
     font-family:system-ui, sans-serif;
 }
-
 body {
     color: white;
     background: linear-gradient(290deg, #0e1528 0%, #101c38 100%) fixed;
@@ -121,7 +118,7 @@ button:hover>.icon {
 }
 .icon-eye  {
     cursor:pointer;
-    left: 100%;
+    left: 90%;
 }
  
 .svg-icons {
@@ -167,12 +164,6 @@ input:focus::-moz-placeholder  {
     text-align: center;
 }
 
-.sign-up{
-    background: transparent;
-     border: none;
-     color: aliceblue;
-}
-    
 #tab1~#contentOne {
     clip-path: polygon(50% 0, 50% 0, 50% 2em, 100% 2em, 100% 2em, 0 2em, 0 2em, 50% 2em);
     transition: all 0.351s cubic-bezier(0.755, 0.05, 0.855, 0.06);
@@ -274,16 +265,25 @@ input:focus::-moz-placeholder  {
 
 /* Style for Google Login Button */
 .google-button {
-    background: #6c72ff;
-    color: white;
-    padding: 10px 0; /* Adjust padding as needed */
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  background: #6c72ff;
+  color: white;
+  padding: 10px 15px; 
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
 }
 
 .google-button:hover {
-    background: #6e73ed;
+  background: #6e73ed;
+}
+
+/* Styling for the Google icon */
+.google-button svg {
+  margin-right: 8px; 
+  width: 20px;
 }

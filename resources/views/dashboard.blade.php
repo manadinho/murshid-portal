@@ -41,7 +41,6 @@
             </table>
         </div>
     </div>    
-
 <!-- Create Project Modal -->
 <div class="modal fade" id="createProjectModal" tabindex="-1" aria-labelledby="createProjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -51,26 +50,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="contact-form" method="POST" action="{{ route('projects.create') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="projectName" class="form-label">Project Name</label>
-                        <input type="text" id="projectName" name="name" placeholder="Project name..">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                <div class="mb-3">
+                    <label for="projectName" class="form-label">Project Name</label>
+                    <input type="text" id="projectName" name="name" placeholder="Project name.." class="form-control" onchange="storeName(this)">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
 </div>
 @push('script')
 <script>
-    const body = document.body;
-    const modeToggle = document.getElementById('modeToggle');
-    modeToggle.addEventListener('change', function() {
-        body.classList.toggle('dark-mode');
-        body.classList.toggle('light-mode');
-    });
+   
     function updateName(id, element) {
 
         $.ajax({
@@ -90,6 +81,25 @@
             }
         });
     }
+    
+    function storeName(element) {
+
+    $.ajax({
+        url: "{{ route('projects.create') }}",
+        type: "POST",
+        data: {
+            "_token": "{{ csrf_token() }}",
+            "name": element.value,
+        },
+        success: function(response) {
+            if (response.success) {
+                alert(element.value + ' Project Created! ');
+            } else {
+                alert('Error: Project Not Created');
+            }
+        }
+    });
+}
 </script>
 @endpush
 @endsection
